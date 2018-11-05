@@ -4,7 +4,7 @@
  * Сделано задание на звездочку
  * Реализованы методы several и through
  */
-const isStar = false;
+const isStar = true;
 
 /*
 ох, как же его не хватает
@@ -104,7 +104,11 @@ function getEmitter() {
          * @returns {ThisType}
          */
         off: function (event, context) {
-            events.get(event).removeListener(context);
+            for (let [name, eventManager] of events.entries()) {
+                if (name === event || name.startsWith(`${event}.`)) {
+                    eventManager.removeListener(context);
+                }
+            }
 
             return this;
         },
